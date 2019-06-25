@@ -221,6 +221,7 @@ EDXAPP_ENABLE_SYSADMIN_DASHBOARD: false
 # handled in the play.
 EDXAPP_ENABLE_CSMH_EXTENDED: True
 EDXAPP_ENABLE_READING_FROM_MULTIPLE_HISTORY_TABLES: True
+migrate_db: "yes"
 
 EDXAPP_GIT_REPO_DIR: '/edx/var/edxapp/course_repos'
 EDXAPP_GIT_REPO_EXPORT_DIR: '/edx/var/edxapp/export_course_repos'
@@ -459,7 +460,7 @@ EDXAPP_EXTRA_REQUIREMENTS: []
 # Example:
 # EDXAPP_PRIVATE_REQUIREMENTS:
 #   - name: git+https://git.myproject.org/MyProject#egg=MyProject
-EDXAPP_PRIVATE_REQUIREMENTS: 
+EDXAPP_PRIVATE_REQUIREMENTS:
     # For Harvard courses:
     - name: git+https://github.com/open-craft/problem-builder.git@v2.7.7#egg=xblock-problem-builder==2.7.7
     # Oppia XBlock
