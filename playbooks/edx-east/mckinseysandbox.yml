@@ -13,7 +13,7 @@
       nginx_default_sites:
       - lms
     - role: mckinsey_apros
-    - { role: 'edxapp', celery_worker: True, migrate_db: "yes" }
+    - { role: 'edxapp', celery_worker: True }
     - edxapp
     - role: datadog
       when: COMMON_ENABLE_DATADOG
