@@ -12,10 +12,6 @@
       - cms
       nginx_default_sites:
       - lms
-    - mysql
-    - role: edxlocal
-      tags: edxlocal
-    - memcache
     - role: mckinsey_apros
     - { role: 'edxapp', celery_worker: True }
     - edxapp
