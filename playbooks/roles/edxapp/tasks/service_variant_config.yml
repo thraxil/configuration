@@ -128,7 +128,7 @@
 # migrate when the migrate user is overridden in extra vars
 - name: migrate
   command: "{{ COMMON_BIN_DIR }}/edxapp-migrate-{{ item }}"
-  when: migrate_db is defined and migrate_db|lower == "no" and COMMON_MYSQL_MIGRATE_PASS and item != "lms-preview"
+  when: migrate_db is defined and migrate_db|lower == "yes" and COMMON_MYSQL_MIGRATE_PASS and item != "lms-preview"
   run_once: yes
   environment:
     DB_MIGRATION_USER: "{{ COMMON_MYSQL_MIGRATE_USER }}"
