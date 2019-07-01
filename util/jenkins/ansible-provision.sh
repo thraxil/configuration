@@ -588,7 +588,7 @@ if [[ $ret -ne 0 ]]; then
   exit $ret
 fi
 
-extra_var_arg+=' -e edx_platform_version="development" -e forum_version="master"'
+extra_var_arg+=' -e edx_platform_version="release-candidate" -e forum_version="master"'
 
 cd $WORKSPACE/ansible-private
 
