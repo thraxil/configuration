@@ -436,8 +436,8 @@ COMMON_USER_INFO:
     github: true
     type: admin
 USER_CMD_PROMPT: '[$name_tag] '
-COMMON_ENABLE_NEWRELIC_APP: $enable_newrelic
-COMMON_ENABLE_DATADOG: $enable_datadog
+COMMON_ENABLE_NEWRELIC_APP: false
+COMMON_ENABLE_DATADOG: false
 COMMON_OAUTH_BASE_URL: "https://${deploy_host}"
 FORUM_NEW_RELIC_ENABLE: $enable_newrelic
 ENABLE_PERFORMANCE_COURSE: $performance_course
