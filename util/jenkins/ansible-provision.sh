@@ -609,7 +609,7 @@ cd $WORKSPACE/configuration/playbooks/edx-east
 
 #git checkout $ForumConfigurationVersion
 
-run_ansible -vvvv mongo_3_2.yml -i "${deploy_host},"  $extra_var_arg --user ubuntu
+#run_ansible -vvvv mongo_3_2.yml -i "${deploy_host},"  $extra_var_arg --user ubuntu
 run_ansible -vvvv forum.yml -i "${deploy_host}," $extra_var_arg --user ubuntu
 
 PATTERN='all'
