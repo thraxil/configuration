@@ -107,9 +107,9 @@ declare -A langs
 langs["en"]="English"
 ##### end MCKa ################################
 extra_vars_file="/var/tmp/extra-vars-$$.yml"
-sandbox_secure_vars_file="${WORKSPACE}/configuration-secure/ansible/vars/developer-sandbox.yml"
-sandbox_internal_vars_file="${WORKSPACE}/configuration-internal/ansible/vars/developer-sandbox.yml"
-extra_var_arg="-e@${extra_vars_file}"
+#sandbox_secure_vars_file="${WORKSPACE}/configuration-secure/ansible/vars/developer-sandbox.yml"
+#sandbox_internal_vars_file="${WORKSPACE}/configuration-internal/ansible/vars/developer-sandbox.yml"
+#extra_var_arg="-e@${extra_vars_file}"
 
 
 mckinsey_vars_file="${WORKSPACE}/configuration/playbooks/edx-east/mcka_vars/mckinsey.yml"
