@@ -46,7 +46,6 @@ EDXAPP_AWS_QUERYSTRING_AUTH: false
 EDXAPP_AWS_STORAGE_BUCKET_NAME: "SET-ME-PLEASE (ex. bucket-name)"
 # An empty string makes the course import/export functionality to use the
 # file system for storage. Setting this to a bucket-name will use AWS
-EDXAPP_IMPORT_EXPORT_BUCKET: ""
 EDXAPP_AWS_S3_CUSTOM_DOMAIN: "SET-ME-PLEASE (ex. bucket-name.s3.amazonaws.com)"
 EDXAPP_SWIFT_USERNAME: !!null
 EDXAPP_SWIFT_KEY: !!null
@@ -74,12 +73,10 @@ EDXAPP_MONGO_DB_NAME: 'edxapp'
 EDXAPP_MONGO_USE_SSL: False
 EDXAPP_MONGO_REPLICA_SET: ''
 # Used only if EDXAPP_MONGO_REPLICA_SET is provided.
-EDXAPP_MONGO_CMS_READ_PREFERENCE: 'PRIMARY'
 EDXAPP_MONGO_LMS_READ_PREFERENCE: 'SECONDARY_PREFERRED'
 # We use the CMS read_preference here because the draft docstore's view of
 # the modulestore should mirror Studio's, so that instructors can check their
 # changes in Preview mode.
-EDXAPP_LMS_DRAFT_DOC_STORE_READ_PREFERENCE: '{{ EDXAPP_MONGO_CMS_READ_PREFERENCE }}'
 EDXAPP_LMS_SPLIT_DOC_STORE_READ_PREFERENCE: '{{ EDXAPP_MONGO_LMS_READ_PREFERENCE }}'
 
 EDXAPP_MYSQL_DB_NAME: 'edxapp'
@@ -227,7 +224,6 @@ EDXAPP_ENABLE_CSMH_EXTENDED: True
 EDXAPP_ENABLE_READING_FROM_MULTIPLE_HISTORY_TABLES: True
 
 EDXAPP_GIT_REPO_DIR: '/edx/var/edxapp/course_repos'
-EDXAPP_GIT_REPO_EXPORT_DIR: '/edx/var/edxapp/export_course_repos'
 
 EDXAPP_FINANCIAL_REPORTS:
   BUCKET: !!null
@@ -271,9 +267,6 @@ EDXAPP_SHOW_HEADER_LANGUAGE_SELECTOR: false
 # Display a language selector in the LMS footer.
 EDXAPP_SHOW_FOOTER_LANGUAGE_SELECTOR: false
 
-# Configure x_frame_options in LMS/CMS
-EDXAPP_X_FRAME_OPTIONS: "DENY"
-
 EDXAPP_FEATURES:
   AUTH_USE_OPENID_PROVIDER: true
   ENABLE_DISCUSSION_SERVICE: true
@@ -307,7 +300,6 @@ EDXAPP_FEATURES:
 # as the lms (it's sent in the request)
 EDXAPP_SITE_NAME: 'localhost'
 EDXAPP_LMS_SITE_NAME: "{{ EDXAPP_SITE_NAME }}"
-EDXAPP_CMS_SITE_NAME: 'localhost'
 EDXAPP_MEDIA_URL:  "/media"
 EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
 EDXAPP_LOGGING_ENV:  'sandbox'
@@ -412,12 +404,9 @@ EDXAPP_GRADE_STORAGE_KWARGS:
 # Override this var to use a CDN
 # Example: http://xxxxx.cloudfront.net/static/
 
-# Default variable, likely to be retired since LMS and CMS are being separated
-EDXAPP_STATIC_URL_BASE: "/static/"
+
 # If you would like LMS to use a different CDN or path
 EDXAPP_LMS_STATIC_URL_BASE: "{{ EDXAPP_STATIC_URL_BASE }}"
-# If you would like Studio to use a different CDN or path
-EDXAPP_CMS_STATIC_URL_BASE: "{{ EDXAPP_STATIC_URL_BASE }}"
 
 # Credit card processor
 # These are the same defaults set in common.py
@@ -532,7 +521,6 @@ EDXAPP_GOOGLE_SITE_VERIFICATION_ID: ""
 
 EDXAPP_OPTIMIZELY_PROJECT_ID: !!null
 EDXAPP_TRACKING_SEGMENTIO_WEBHOOK_SECRET: ""
-EDXAPP_CMS_SEGMENT_KEY: !!null
 EDXAPP_LMS_SEGMENT_KEY: !!null
 EDXAPP_EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST: []
 
@@ -542,7 +530,6 @@ EDXAPP_VERIFY_STUDENT:
   DAYS_GOOD_FOR: 365
   EXPIRING_SOON_WINDOW: 28
 
-EDXAPP_CONTENTSTORE_ADDITIONAL_OPTS: {}
 EDXAPP_BULK_EMAIL_EMAILS_PER_TASK: 500
 # If using microsites this should point to the microsite repo
 EDXAPP_MICROSITE_ROOT_DIR: "{{ edxapp_app_dir }}/edx-microsite"
@@ -631,7 +618,6 @@ EDXAPP_POLICY_CHANGE_GRADES_ROUTING_KEY: 'edx.lms.core.default'
 EDXAPP_BULK_EMAIL_ROUTING_KEY_SMALL_JOBS: 'edx.lms.core.default'
 EDXAPP_PROGRAM_CERTIFICATES_ROUTING_KEY: 'edx.lms.core.default'
 EDXAPP_LMS_CELERY_QUEUES: "{{ edxapp_workers|selectattr('service_variant', 'equalto', 'lms')|map(attribute='queue')|map('regex_replace', '(.*)', 'edx.lms.core.\\1')|list }}"
-EDXAPP_CMS_CELERY_QUEUES: "{{ edxapp_workers|selectattr('service_variant', 'equalto', 'cms')|map(attribute='queue')|map('regex_replace', '(.*)', 'edx.cms.core.\\1')|list }}"
 
 EDXAPP_DEFAULT_CACHE_VERSION: "1"
 EDXAPP_OAUTH_ENFORCE_SECURE: True
@@ -737,8 +723,6 @@ EDXAPP_PROFILE_IMAGE_SIZES_MAP:
   large: 120
   medium: 50
   small: 30
-
-EDXAPP_PARSE_KEYS: {}
 
 # In a production environment when using separate clusters, you'll
 # want to route requests differently from the LMS (internal api) and
@@ -915,9 +899,6 @@ EDXAPP_ENTERPRISE_CUSTOMER_SUCCESS_EMAIL: "customersuccess@edx.org"
 
 EDXAPP_ENTERPRISE_ENROLLMENT_API_URL: "{{ EDXAPP_LMS_INTERNAL_ROOT_URL }}/api/enrollment/v1/"
 
-# The default value of this needs to be a 16 character string
-EDXAPP_ENTERPRISE_REPORTING_SECRET: '0000000000000000'
-
 EDXAPP_ENTERPRISE_SUPPORT_URL: ''
 
 EDXAPP_ENTERPRISE_TAGLINE: ''
@@ -1084,10 +1065,6 @@ EDXAPP_LMS_DRAFT_DOC_STORE_CONFIG:
 EDXAPP_LMS_SPLIT_DOC_STORE_CONFIG:
   <<: *edxapp_generic_default_docstore
   read_preference: "{{ EDXAPP_LMS_SPLIT_DOC_STORE_READ_PREFERENCE }}"
-
-EDXAPP_CMS_DOC_STORE_CONFIG:
-  <<: *edxapp_generic_default_docstore
-  read_preference: "{{ EDXAPP_MONGO_CMS_READ_PREFERENCE }}"
 
 edxapp_databases:
 # edxapp's edxapp-migrate scripts and the edxapp_migrate play
@@ -1508,47 +1485,6 @@ lms_env_config:
   PROGRAM_CERTIFICATES_ROUTING_KEY: "{{ EDXAPP_PROGRAM_CERTIFICATES_ROUTING_KEY }}"
   ACCOUNT_MICROFRONTEND_URL: "{{ EDXAPP_ACCOUNT_MICROFRONTEND_URL }}"
   PROGRAM_MANAGER_MICROFRONTEND_URL: "{{ EDXAPP_PROGRAM_MANAGER_MICROFRONTEND_URL}}"
-
-cms_auth_config:
-  <<: *edxapp_generic_auth
-  CONTENTSTORE:
-    <<: *edxapp_generic_default_contentstore
-    ADDITIONAL_OPTIONS: "{{ EDXAPP_CONTENTSTORE_ADDITIONAL_OPTS }}"
-    DOC_STORE_CONFIG: "{{ EDXAPP_CMS_DOC_STORE_CONFIG }}"
-  DOC_STORE_CONFIG: "{{ EDXAPP_CMS_DOC_STORE_CONFIG }}"
-  ENTERPRISE_REPORTING_SECRET: "{{ EDXAPP_ENTERPRISE_REPORTING_SECRET }}"
-  MODULESTORE:
-    default:
-        ENGINE: 'xmodule.modulestore.mixed.MixedModuleStore'
-        OPTIONS:
-          mappings: {}
-          stores:
-            - NAME: 'split'
-              ENGINE: 'xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore'
-              DOC_STORE_CONFIG: "{{ EDXAPP_CMS_DOC_STORE_CONFIG }}"
-              OPTIONS:
-                default_class: 'xmodule.hidden_module.HiddenDescriptor'
-                fs_root:  "{{ edxapp_course_data_dir }}"
-                render_template: 'edxmako.shortcuts.render_to_string'
-            - NAME: 'draft'
-              ENGINE: 'xmodule.modulestore.mongo.DraftMongoModuleStore'
-              DOC_STORE_CONFIG: "{{ EDXAPP_CMS_DOC_STORE_CONFIG }}"
-              OPTIONS:
-                default_class: 'xmodule.hidden_module.HiddenDescriptor'
-                fs_root:  "{{ edxapp_course_data_dir }}"
-                render_template: 'edxmako.shortcuts.render_to_string'
-  SEGMENT_KEY: "{{ EDXAPP_CMS_SEGMENT_KEY }}"
-  PARSE_KEYS: "{{ EDXAPP_PARSE_KEYS }}"
-
-cms_env_config:
-  <<: *edxapp_generic_env
-  SITE_NAME:  "{{ EDXAPP_CMS_SITE_NAME }}"
-  GIT_REPO_EXPORT_DIR: "{{ EDXAPP_GIT_REPO_EXPORT_DIR }}"
-  CELERY_QUEUES: "{{ EDXAPP_CMS_CELERY_QUEUES }}"
-  ALTERNATE_WORKER_QUEUES: "lms"
-  COURSE_IMPORT_EXPORT_BUCKET: "{{ EDXAPP_IMPORT_EXPORT_BUCKET }}"
-  STATIC_URL_BASE: "{{ EDXAPP_CMS_STATIC_URL_BASE }}"
-  X_FRAME_OPTIONS: "{{ EDXAPP_X_FRAME_OPTIONS }}"
 
 # install dir for the edx-platform repo
 edxapp_code_dir: "{{ edxapp_app_dir }}/edx-platform"

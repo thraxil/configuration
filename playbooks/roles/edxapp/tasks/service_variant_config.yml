@@ -46,18 +46,6 @@
     - edxapp_cfg # Old deprecated tag, will remove when possible
     - edxapp_cfg_yaml_only # Used to render the yaml without the json until we remove the json configs
 
-- name: combined cms auth env for yml
-  set_fact:
-    cms_combined_config: '{{cms_env_config|combine(cms_auth_config)}}'
-  no_log: "{{ COMMON_CONFIG_NO_LOGGING }}"
-  when: '"cms" in service_variants_enabled'
-  tags:
-    - install
-    - install:configuration
-    - install:app-configuration
-    - edxapp_cfg # Old deprecated tag, will remove when possible
-    - edxapp_cfg_yaml_only # Used to render the yaml without the json until we remove the json configs
-
 - name: render studio yml config # meant to replace existing json config eventually
   template:
     src: "studio.yml.j2"
