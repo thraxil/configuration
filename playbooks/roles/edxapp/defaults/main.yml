@@ -219,6 +219,8 @@ EDXAPP_PRIVATE_REQUIREMENTS:
     - name: git+https://github.com/open-craft/xblock-activetable.git@e933d41bb86a8d50fb878787ca680165a092a6d5#egg=xblock-activetable
       extra_args: -e
 
+EDXAPP_SESSION_COOKIE_NAME: "sessionid"
+
 # Whether to run reindex_course on deploy
 EDXAPP_REINDEX_ALL_COURSES: false
 
@@ -284,6 +286,8 @@ EDXAPP_CFG_DIR: "{{ COMMON_CFG_DIR }}/edxapp"
 
 EDXAPP_CORS_ORIGIN_WHITELIST: []
 EDXAPP_PROFILE_IMAGE_MAX_AGE: 31536000
+
+EDXAPP_PROFILE_IMAGE_MAX_BYTES: 1048576
 
 # Comprehensive Theming
 # Deprecated, maintained for backward compatibility
