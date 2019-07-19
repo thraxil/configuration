@@ -282,6 +282,7 @@ EDXAPP_CFG_DIR: "{{ COMMON_CFG_DIR }}/edxapp"
 #NB2: custom_domain is REQUIRED. Otherwise, boto will generate a
 # temporary URL whenever asked for the URL of a specific file.
 
+EDXAPP_CORS_ORIGIN_WHITELIST: []
 EDXAPP_PROFILE_IMAGE_MAX_AGE: 31536000
 
 # Comprehensive Theming
