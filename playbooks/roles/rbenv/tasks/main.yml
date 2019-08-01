@@ -106,7 +106,7 @@
   command: mktemp -d
   register: tempdir
   become_user: "{{ rbenv_user }}"
-  when: rbuild_present|failed or (installable_ruby_vers is defined and rbenv_ruby_version not in installable_ruby_vers)
+  when: rbuild_present is failed or (installable_ruby_vers is defined and rbenv_ruby_version not in installable_ruby_vers)
   tags:
     - install
     - install:base
@@ -184,7 +184,7 @@
   when: jenkins_worker is not defined or not jenkins_worker
   tags:
     - install
-    - install:base  
+    - install:base
 
 - name: install rake gem
   shell: "gem install rake -v {{ rbenv_rake_version }}"
