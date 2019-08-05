@@ -47,9 +47,11 @@ ENV PATH="/edx/app/analytics_pipeline/venvs/analytics_pipeline/bin:${JAVA_HOME}/
     COMMON_CFG_DIR=$COMMON_BASE_DIR/etc
 
 # add custom PPAs & install packages
-RUN apt-get update -y && apt-get install -y software-properties-common \
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list \
+    && apt-get update -y && apt-get install -y software-properties-common \
     && apt-key adv --keyserver $EDX_PPA_KEY_SERVER --recv-keys $EDX_PPA_KEY_ID \
     && add-apt-repository -y 'deb http://ppa.edx.org xenial main' \
+    && sed -i '/jessie-updates/d' /etc/apt/sources.list \
     && apt-get update -y \
     && apt-get install --no-install-recommends -y \
            python2.7 python2.7-dev python-pip python-apt python-yaml python-jinja2 libmysqlclient-dev libffi-dev libssl-dev \
@@ -133,7 +135,8 @@ RUN pip install $COMMON_PIP_PACKAGES_PIP $COMMON_PIP_PACKAGES_SETUPTOOLS $COMMON
     && chown -R hadoop:hadoop $ANALYTICS_PIPELINE_VENV/analytics_pipeline/ \
     && echo '[hadoop]\nversion: cdh4\ncommand: /edx/app/hadoop/hadoop/bin/hadoop\nstreaming-jar: /edx/app/hadoop/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.2.jar' > /etc/luigi/client.cfg
 
-RUN apt-get update && make system-requirements
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list \
+    && apt-get update && make system-requirements
 ADD docker/build/analytics_pipeline/devstack.sh /edx/app/analytics_pipeline/devstack.sh
 RUN chown hadoop:hadoop /edx/app/analytics_pipeline/devstack.sh && chmod a+x /edx/app/analytics_pipeline/devstack.sh
 USER hadoop
