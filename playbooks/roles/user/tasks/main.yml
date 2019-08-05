@@ -225,3 +225,17 @@
   with_nested:
     - "{{ user_info }}"
     - "{{ user_rbash_links }}"
+
+- name: Allow user to login remotely
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^AllowUsers'
+    line: AllowUsers {{ USERS_ALLOWED_TO_SSH.split(',')| join(' ') }}
+  when: USERS_ALLOWED_TO_SSH is defined
+  register: users_ssh_access
+
+- name: restart ssh
+  service:
+    name: ssh
+    state: restarted
+  when: users_ssh_access.changed
